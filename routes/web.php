@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\GalleryController;
+use App\Models\News;
 
 /* Головна сторінка (Вимога 1) */
 Route::get('/', function () {
@@ -24,6 +25,13 @@ Route::get('contact', [PageController::class, 'contact'])->name('contact');
 Route::get('gallery', [GalleryController::class, 'index'])->name('gallery.index');
 // 4. Новини
 Route::resource('news', NewsController::class); // Створює всі маршрути для новин (список, деталі, CRUD)
+/* Головна сторінка (Вимога 5) */
+Route::get('/', function () {
+    // Отримати 10 найновіших новин
+    $latestNews = News::latest()->take(10)->get();
+
+    return view('welcome', compact('latestNews'));
+})->name('home');
 
 Route::get('/', function () {
     return view('welcome');
