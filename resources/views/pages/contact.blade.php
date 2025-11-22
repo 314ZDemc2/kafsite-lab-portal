@@ -80,7 +80,7 @@ $(document).ready(function(){
             success: function(response) {
                 status.removeClass().addClass('alert alert-success').text('Дякуємо! Ваше повідомлення отримано.');
                 form[0].reset(); // Очищуємо форму
-                btn.prop('disabled', false).text('Надіслати (AJAX)');
+                btn.prop('disabled', false).text('Надіслати');
             },
             error: function(xhr) {
                 var errorMessage = 'Помилка відправки. Спробуйте пізніше.';
@@ -88,7 +88,7 @@ $(document).ready(function(){
                     errorMessage = 'Будь ласка, заповніть усі поля коректно.';
                 }
                 status.removeClass().addClass('alert alert-danger').text(errorMessage);
-                btn.prop('disabled', false).text('Надіслати (AJAX)');
+                btn.prop('disabled', false).text('Надіслати');
             }
         });
     });
