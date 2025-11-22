@@ -2,8 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 // kafsite/routes/web.php
-
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\GalleryController;
