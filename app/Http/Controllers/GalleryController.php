@@ -1,17 +1,20 @@
 <?php
 
-// kafsite/app/Http/Controllers/GalleryController.php
 namespace App\Http\Controllers;
 
-use App\Models\GalleryItem; // ❗ Додайте це
+use App\Models\GalleryItem;
 use Illuminate\Http\Request;
 
 class GalleryController extends Controller
 {
+    /**
+     * Відображення галереї з пагінацією.
+     */
     public function index()
     {
-        // Отримуємо всі фото
-        $photos = GalleryItem::latest()->get(); 
-        return view('gallery.index', compact('photos'));
+        // Отримати елементи галереї, відсортовані за датою створення (новіші перші)
+        $items = GalleryItem::latest()->paginate(9); // 9 елементів на сторінку
+        
+        return view('gallery.index', compact('items'));
     }
 }

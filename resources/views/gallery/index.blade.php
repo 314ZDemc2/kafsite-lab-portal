@@ -1,64 +1,65 @@
 @extends('layouts.app')
 
-@section('title', 'Галерея Картинок')
+@section('title', 'Галерея Навчальної Лабораторії')
 
 @section('content')
-    <h1 class="mb-5">🖼️ Галерея Навчальної Лабораторії</h1>
-    
-    <div class="row">
-        {{-- Виводимо фото, які ми передали з контролера GalleryController@index --}}
-        @foreach ($photos as $photo)
-            <div class="col-md-4 col-sm-6 mb-4">
-                <div class="card shadow-sm h-100">
-                    {{-- Посилання, яке буде перехоплено jQuery --}}
-                    <a href="{{ $photo->file_path }}" class="gallery-link" 
-                       data-title="{{ $photo->title }}">
-                        <img src="{{ $photo->thumbnail_path }}" alt="{{ $photo->title }}" class="img-fluid rounded" style="width: 100%; height: 200px; object-fit: cover;">
-                    </a>
-                    <div class="card-footer text-center small text-muted">
-                        {{ $photo->title }}
+{{-- 
+    Контейнер Bootstrap вже існує у layouts.app. 
+    Використовуємо row justify-content-center для вмісту.
+--}}
+<div class="row justify-content-center">
+    <div class="col-12">
+        <h1 class="text-center mb-5 border-bottom border-primary pb-2" style="font-size: 2.5rem; font-weight: 700;">
+            Галерея Навчальної Лабораторії
+        </h1>
+
+        {{-- СІТКА ГАЛЕРЕЇ: 3 колонки на великих екранах, 2 на середніх --}}
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            
+            @forelse($items as $item)
+                <div class="col d-flex">
+                    <div class="card shadow-sm w-100 h-100 border-0 rounded-3 transition-shadow-hover">
+                        <a href="{{ $item->file_path }}" data-lightbox="gallery" data-title="{{ $item->title }}">
+                            <img 
+                                src="{{ $item->thumbnail_path }}" 
+                                class="card-img-top" 
+                                alt="{{ $item->title }}" 
+                                style="height: 250px; object-fit: cover;">
+                        </a>
+                        
+                        <div class="card-body p-3 text-center">
+                            <h6 class="card-title fw-semibold text-primary mb-1">{{ $item->title }}</h6>
+                            <small class="text-muted">{{ $item->created_at->format('d.m.Y') }}</small>
+                        </div>
                     </div>
                 </div>
+            @empty
+                {{-- Повідомлення, якщо немає елементів --}}
+                <div class="col-12">
+                    <div class="alert alert-info text-center" role="alert">
+                        <h4 class="alert-heading">Інформація!</h4>
+                        <p>На жаль, у галереї немає фотографій.</p>
+                    </div>
+                </div>
+            @endforelse
+        </div>
+
+        {{-- Пагінація --}}
+        @if($items->hasPages())
+            <div class="d-flex justify-content-center mt-5">
+                {{ $items->links('pagination::bootstrap-5') }}
             </div>
-        @endforeach
+        @endif
     </div>
-    
-    {{-- <div class="d-flex justify-content-center mt-4">
-        {{ $photos->links('pagination::bootstrap-5') }}
-    </div> --}}
+</div>
 
-    <div id="photo-dialog" title="Перегляд зображення" style="display: none;">
-        <img id="dialog-image" src="" alt="Повнорозмірне зображення" style="max-width: 100%; height: auto;">
-        <p class="mt-2 text-center" id="dialog-title"></p>
-    </div>
-@endsection
-
-@section('scripts')
-<script>
-    $(function() {
-        $(".gallery-link").on('click', function(e) {
-            e.preventDefault();
-            
-            var imageUrl = $(this).attr('href');
-            var imageTitle = $(this).data('title');
-            
-            // Встановлюємо URL та заголовок
-            $("#dialog-image").attr('src', imageUrl);
-            $("#dialog-title").text(imageTitle);
-            
-            // Відкриваємо jQuery UI Dialog
-            $("#photo-dialog").dialog({
-                modal: true,
-                width: 800,
-                maxHeight: 600,
-                resizable: false,
-                buttons: {
-                    "Закрити": function() {
-                        $(this).dialog("close");
-                    }
-                }
-            });
-        });
-    });
-</script>
+<style>
+/* Додаємо CSS, який ви вже використовували для ефекту тіні */
+.transition-shadow-hover {
+    transition: box-shadow 0.3s ease;
+}
+.transition-shadow-hover:hover {
+    box-shadow: 0 0.5rem 1.5rem rgba(0,0,0,.15) !important;
+}
+</style>
 @endsection

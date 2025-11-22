@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller; 
 use App\Models\News; 
+use Illuminate\Support\Str; // <-- Додано для безпечної обрізки тексту у Blade, якщо потрібно
 
 class NewsController extends Controller
 {
