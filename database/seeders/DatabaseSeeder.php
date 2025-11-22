@@ -3,14 +3,15 @@
 // kafsite/database/seeders/DatabaseSeeder.php
 
 use App\Models\News; // ❗ Не забудьте додати це ❗
+use App\Models\GalleryItem;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    public function run(): void
-    {
-        // Створюємо 15 тестових записів у таблиці news
-        News::factory(15)->create();
-        $this->command->info('15 тестових новин створено!');
-    }
+   public function run(): void
+{
+    News::factory(15)->create();
+    GalleryItem::factory(12)->create(); // Створюємо 12 елементів галереї
+    $this->command->info('12 тестових фото галереї створено!');
+}
 }
