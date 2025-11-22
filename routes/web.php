@@ -1,18 +1,19 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-// kafsite/routes/web.php
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\GalleryController;
-use App\Models\News;
+use App\Models\News; // Модель для новин
 
-/* Головна сторінка (Вимога 1) */
+/* Головна сторінка (Вимога 1 та 5) */
 Route::get('/', function () {
-    // Поки що повертаємо лише шаблон. Логіку додамо пізніше.
-    return view('welcome');
-})->name('home');
+    // Отримати 10 найновіших новин
+    $latestNews = News::latest()->take(10)->get();
 
+    // Передати змінну у шаблон
+    return view('welcome', compact('latestNews'));
+})->name('home');
 
 /* Статичні сторінки (Меню) */
 // 1. Про сайт
@@ -25,14 +26,6 @@ Route::get('contact', [PageController::class, 'contact'])->name('contact');
 Route::get('gallery', [GalleryController::class, 'index'])->name('gallery.index');
 // 4. Новини
 Route::resource('news', NewsController::class); // Створює всі маршрути для новин (список, деталі, CRUD)
-/* Головна сторінка (Вимога 5) */
-Route::get('/', function () {
-    // Отримати 10 найновіших новин
-    $latestNews = News::latest()->take(10)->get();
 
-    return view('welcome', compact('latestNews'));
-})->name('home');
-
-Route::get('/', function () {
-    return view('welcome');
-});
+/* Маршрут для AJAX-форми (Етап 11, для 3-го рівня складності) */
+Route::post('/submit-contact', [PageController::class, 'submitContact']);
