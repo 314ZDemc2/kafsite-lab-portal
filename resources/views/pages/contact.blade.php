@@ -13,7 +13,7 @@
             <p><strong>Телефон:</strong> +38 (067) 555-55-55</p>
             <p><strong>Email:</strong> lab@kafsite.edu</p>
             
-            <h3 class="mt-5">Форма Зворотного Зв'язку (AJAX)</h3>
+            <h3 class="mt-5">Форма Зворотного Зв'язку</h3>
 <div id="status-message" class="alert d-none"></div>
 
 <form id="contactForm">
@@ -30,7 +30,7 @@
         <label for="message" class="form-label">Повідомлення</label>
         <textarea class="form-control" id="message" name="message" rows="3" required></textarea>
     </div>
-    <button type="submit" class="btn btn-success" id="submitBtn">Надіслати (AJAX)</button>
+    <button type="submit" class="btn btn-success" id="submitBtn">Надіслати</button>
 </form>
         </div>
         

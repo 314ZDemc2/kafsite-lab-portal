@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="uk" class="h-100">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,11 +12,11 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     
 </head>
-<body>
+<body class="d-flex flex-column h-100">
 
     @include('includes.header') 
 
-    <main class="py-4">
+    <main class="flex-shrink-0 py-4">
         <div class="container">
             @yield('content')
         </div>

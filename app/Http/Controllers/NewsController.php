@@ -3,62 +3,39 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller; 
+use App\Models\News; 
 
 class NewsController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Відображення списку всіх новин з пагінацією.
      */
     public function index()
     {
-        //
+        // Отримати всі новини, відсортовані за датою створення (найновіші перші)
+        // Додаємо пагінацію: 8 новин на сторінку
+        $news = News::latest()->paginate(8);
+        
+        return view('news.index', compact('news'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Відображення конкретної новини (деталі) за slug.
      */
-    public function create()
+    public function show(string $slug)
     {
-        //
+        // Знаходимо новину за унікальним slug. 
+        // firstOrFail() видасть помилку 404, якщо новини не знайдено.
+        $item = News::where('slug', $slug)->firstOrFail();
+        
+        return view('news.show', compact('item'));
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+    
+    // Ці методи були створені командою Route::resource, але не використовуються для фронтенду:
+    public function create() { /* ... */ }
+    public function store(Request $request) { /* ... */ }
+    public function edit(string $id) { /* ... */ }
+    public function update(Request $request, string $id) { /* ... */ }
+    public function destroy(string $id) { /* ... */ }
 }
