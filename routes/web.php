@@ -4,28 +4,29 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\GalleryController;
-use App\Models\News; // Модель для новин
+use App\Http\Controllers\AdminController; 
+use App\Models\News; 
 
-/* Головна сторінка (Вимога 1 та 5) */
+/* --- СТАНДАРТНІ МАРШРУТИ ПОРТАЛУ --- */
 Route::get('/', function () {
-    // Отримати 10 найновіших новин
-    $latestNews = News::latest()->take(10)->get();
-
-    // Передати змінну у шаблон
+    $latestNews = App\Models\News::latest()->take(10)->get();
     return view('welcome', compact('latestNews'));
 })->name('home');
 
-/* Статичні сторінки (Меню) */
-// 1. Про сайт
+// Статичні та динамічні сторінки
 Route::get('about', [PageController::class, 'about'])->name('about');
-// 2. Контакти (з картою Google)
 Route::get('contact', [PageController::class, 'contact'])->name('contact');
 
-/* Динамічні сторінки (Меню) */
-// 3. Галерея картинок
 Route::get('gallery', [GalleryController::class, 'index'])->name('gallery.index');
-// 4. Новини
-Route::resource('news', NewsController::class); // Створює всі маршрути для новин (список, деталі, CRUD)
-
-/* Маршрут для AJAX-форми (Етап 11, для 3-го рівня складності) */
+Route::resource('news', NewsController::class);
 Route::post('/submit-contact', [PageController::class, 'submitContact']);
+
+/* --- ЗАХИЩЕНА АДМІН-ПАНЕЛЬ --- */
+Route::prefix('admin')->middleware('auth')->group(function () {
+    Route::get('messages', [AdminController::class, 'showMessages'])->name('admin.messages');
+    Route::post('messages/{message}/read', [AdminController::class, 'markAsRead'])->name('admin.messages.read');
+});
+
+/* --- МАРШРУТИ АВТЕНТИФІКАЦІЇ --- */
+// Цей рядок реєструє маршрути /login, /logout, /register
+Auth::routes();
