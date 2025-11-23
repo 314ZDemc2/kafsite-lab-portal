@@ -1,9 +1,7 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="{{ url('/') }}">
-                {{ config('app.name', 'Лабораторія Кафедри') }}
-            </a>
+           
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -32,17 +30,8 @@
                 {{-- ПРАВА ЧАСТИНА: АВТЕНТИФІКАЦІЯ ТА АДМІН-ПАНЕЛЬ --}}
                 <ul class="navbar-nav ms-auto">
                     @guest
-                        @if (Route::has('login'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">Вхід</a>
-                            </li>
-                        @endif
-
-                        @if (Route::has('register'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">Реєстрація</a>
-                            </li>
-                        @endif
+                        {{-- ВХІД ТЕПЕР ВЕДЕ НА /admin --}}
+                       
                     @else
                         {{-- Посилання на Адмін-панель (Тільки для авторизованих) --}}
                         <li class="nav-item">
@@ -58,10 +47,7 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                {{-- Посилання на Профіль (якщо потрібно) --}}
-                                <a class="dropdown-item" href="#">Профіль</a> 
-
-                                {{-- Кнопка Виходу --}}
+                                {{-- КНОПКА ВИХОДУ --}}
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">

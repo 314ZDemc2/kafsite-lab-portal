@@ -30,9 +30,9 @@
                             <th scope="col">Статус</th>
                             <th scope="col">Ім'я</th>
                             <th scope="col">Email</th>
-                            <th scope="col" style="width: 40%;">Повідомлення</th>
+                            <th scope="col" style="width: 35%;">Повідомлення</th>
                             <th scope="col">Дата</th>
-                            <th scope="col">Дія</th>
+                            <th scope="col" style="width: 15%;">Дія</th> {{-- Розширюємо колонку Дія --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -49,21 +49,30 @@
                                 </td>
                                 <td>{{ $message->name }}</td>
                                 <td>{{ $message->email }}</td>
-                                {{-- Використання повного шляху для коректної роботи --}}
-                                <td>{{ \Illuminate\Support\Str::limit($message->message, 100) }}</td>
+                                <td>{{ \Illuminate\Support\Str::limit($message->message, 80) }}</td>
                                 <td>{{ $message->created_at->format('d.m.Y H:i') }}</td>
                                 <td>
-                                    @if(!$message->is_read)
-                                        {{-- Форма для позначення як прочитане --}}
-                                        <form method="POST" action="{{ route('admin.messages.read', $message) }}">
+                                    {{-- Група кнопок --}}
+                                    <div class="d-flex flex-column">
+                                        {{-- КНОПКА 1: Позначити як прочитане --}}
+                                        @if(!$message->is_read)
+                                            <form method="POST" action="{{ route('admin.messages.read', $message) }}" class="mb-1">
+                                                @csrf
+                                                <button type="submit" class="btn btn-sm btn-outline-success w-100">
+                                                    Прочитано
+                                                </button>
+                                            </form>
+                                        @endif
+
+                                        {{-- КНОПКА 2: Видалити --}}
+                                        <form method="POST" action="{{ route('admin.messages.destroy', $message) }}" onsubmit="return confirm('Ви впевнені, що хочете видалити це повідомлення?')" class="d-inline">
                                             @csrf
-                                            <button type="submit" class="btn btn-sm btn-outline-success">
-                                                Позначити як прочитане
+                                            @method('DELETE') {{-- Метод DELETE для видалення --}}
+                                            <button type="submit" class="btn btn-sm btn-danger w-100">
+                                                Видалити
                                             </button>
                                         </form>
-                                    @else
-                                        —
-                                    @endif
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach

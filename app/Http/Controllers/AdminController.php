@@ -26,4 +26,14 @@ class AdminController extends Controller
         
         return redirect()->route('admin.messages')->with('success', 'Повідомлення позначено як прочитане.');
     }
+
+    /**
+     * Видаляє повідомлення.
+     */
+    public function destroy(ContactMessage $message)
+    {
+        $message->delete();
+        
+        return redirect()->route('admin.messages')->with('success', 'Повідомлення успішно видалено.');
+    }
 }
