@@ -119,5 +119,3 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
 </style>
 
-
-Я оновив сітку в секції "Використані Технології" з `row-cols-md-3` на **`row-cols-md-4`**, щоб усі чотири елементи (Laravel, Bootstrap, Eloquent, jQuery) помістилися в один рядок на десктопі. Це зробить відображення акуратним.
