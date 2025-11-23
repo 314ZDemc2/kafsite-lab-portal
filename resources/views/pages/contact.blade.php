@@ -36,28 +36,22 @@
         
         <div class="col-md-7">
             <h3>Розташування на Карті</h3>
-            <div id="googleMap" style="height: 400px; width: 100%; border: 1px solid #ccc; border-radius: 5px;"></div>
+            <div  style="height: 400px; width: 100%; border: 1px solid #ccc; border-radius: 5px;">
+                <iframe 
+        width="100%" 
+        height="500" 
+        frameborder="0" 
+        scrolling="no" 
+        marginheight="0" 
+        marginwidth="0" 
+        src="https://www.openstreetmap.org/export/embed.html?bbox=30.5400,50.4200,30.5600,50.4350&layer=mapnik&marker=50.4287,30.5485">
+      </iframe>
+</div>
         </div>
     </div>
 @endsection
 
 @section('scripts')
-<script>
-    function initMap() {
-        const labLocation = { lat: 49.8397, lng: 24.0297 }; 
-        const map = new google.maps.Map(document.getElementById("googleMap"), {
-            zoom: 15,
-            center: labLocation,
-        });
-        const marker = new google.maps.Marker({
-            position: labLocation,
-            map: map,
-            title: "Наша Навчальна Лабораторія"
-        });
-    }
-
-    window.onload = initMap;
-</script>
 
 <script>
 // AJAX-скрипт для відправки форми
@@ -95,7 +89,5 @@ $(document).ready(function(){
 });
 </script>
 
-<script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
-</script>
+
 @endsection
