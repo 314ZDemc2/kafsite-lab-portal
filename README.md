@@ -1,3 +1,14 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Перед початком роботи сайту необхідно виконати команду в терміналі :
+
+Авторизація адміна можлива лише після його реєстрації, але реєстрація в коді відключена, для безпеки адмін панелі. Для того щоб повернути реєстрацію, необхідно змінити файли Admincontroller.php, UserController.php, header.blade.php
+
+На сайті рєстрація вирізана, а авторизація відбувається за допомогою вже заповненої бази данних, яка є в проекті. 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
